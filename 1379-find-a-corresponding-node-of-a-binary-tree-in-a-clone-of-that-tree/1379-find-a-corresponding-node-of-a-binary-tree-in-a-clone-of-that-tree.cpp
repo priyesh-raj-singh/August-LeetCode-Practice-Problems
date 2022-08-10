@@ -10,17 +10,19 @@
 
 class Solution {
 public:
-     TreeNode* ans; 
-    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+    void dfs(TreeNode* original, TreeNode* cloned, TreeNode* target , TreeNode* &ans){
         if(cloned==NULL)
-            return cloned;
-       
-        
+            return ;
         if(cloned->val==target->val)
-           ans = cloned;
-        getTargetCopy(original , cloned->left , target);
-        getTargetCopy(original , cloned->right , target);
+            ans = cloned;
+        dfs(original , cloned->left , target , ans);
         
+        dfs(original , cloned->right , target , ans);
+        return ;
+    }
+    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+        TreeNode *ans= nullptr;
+        dfs(original , cloned , target , ans);
         return ans;
         
     }
